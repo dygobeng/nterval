@@ -1,22 +1,62 @@
 #' Calculate true coverage for Normal distribution
 #'
-#' @inheritParams n_ksigma
-#' @param .data
-#' @param z_upper Z-score for upper limit of interval
-#' @param z_lower Z-score for lower limit of interval
+#' @inheritParams estimate_reliability
+#' @param x Data from which to calculate the sample mean and standard deviation.
+#' @param z_upper Z-score for upper limit of interval.
+#' @param z_lower Z-score for lower limit of interval.
+#'
+#' @details User must provide either `x` and `k` OR `z_upper` and `z_lower`.
 #'
 #' @return Proportion of standard Normal distribution enclosed within calculated or provided sample
 #'   interval
-#' @export
 #'
 #' @examples
-calc_coverage_normal <- function(.data,
-                                 k,
+#' calc_coverage_normal(
+#'   x = rnorm(20),
+#'   k = 2
+#' )
+#'
+#' calc_coverage_normal(
+#'   z_upper = 2,
+#'   z_lower = -2
+#' )
+calc_coverage_normal <- function(x = NULL,
+                                 k = NULL,
                                  z_upper = NULL,
                                  z_lower = NULL) {
-  if (!is.null(.data)) {
-    pnorm(mean(.data) + k * sd(.data)) - pnorm(mean(.data) - k * sd(.data))
+
+  assertthat::assert_that(
+    !any(is.null(x) & is.null(k)) | !any(is.null(z_upper) & is.null(z_lower)),
+    msg = "Must provide either x and k OR z_upper and z_lower"
+  )
+
+  if (!is.null(x)) {
+    pnorm(mean(x) + k * sd(x)) - pnorm(mean(x) - k * sd(x))
   } else {
     pnorm(z_upper) - pnorm(z_lower)
   }
+}
+
+
+#' Evaluate function across list elements
+#'
+#' @param list_object List of objects.
+#' @param fun String representing function that returns `TRUE` or `FALSE` to be evaluated across
+#'   `list_object` elements.
+#'
+#' @return `TRUE` if all elements of `list_object` return `TRUE` when evaluated by `fun`; otherwise,
+#'   `FALSE`
+#'
+#' @examples
+#' eval_across(
+#'   list_object = list(2, 3),
+#'   fun = "is.numeric"
+#' )
+eval_across <- function(list_object,
+                        fun) {
+
+  fun_value <- parse(text = fun)
+  purrr::map_lgl(.x = list_object,
+             .f = eval(fun_value)) %>%
+    all()
 }
