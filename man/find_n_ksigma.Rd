@@ -11,9 +11,9 @@ find_n_ksigma(
   search_interval = c(3, 500),
   n_search = NA,
   n_confirm = 1e+05,
-  tol = 0.001,
-  plot = TRUE,
-  verbose = TRUE
+  tolerance = 0.001,
+  plot = FALSE,
+  verbose = FALSE
 )
 }
 \arguments{
@@ -35,15 +35,15 @@ set to approximately 10\% of \code{n_confirm} or 1000, whichever is greater.}
 
 \item{n_confirm}{Number of simulation iterations used to confirm \code{reliability}.}
 
+\item{tolerance}{Threshold for difference between targeted and estimated \code{reliability} that
+indicates sufficient proximity of the root-finding function to 0, triggering the end of the
+search. Default is 0.001.}
+
 \item{plot}{If \code{TRUE}, plot sampling distribution for true interval coverage using sample size
 identified through bisection.}
 
 \item{verbose}{If \code{TRUE}, print the search interval used for each round of the bisection
 algorithm search.}
-
-\item{tolerance}{Threshold for difference between targeted and estimated \code{reliability} that
-indicates sufficient proximity of the root-finding function to 0, triggering the end of the
-search. Default is 0.001.}
 }
 \value{
 A list with the following elements:

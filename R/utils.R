@@ -9,17 +9,6 @@
 #'
 #' @return Proportion of standard Normal distribution enclosed within calculated or provided sample
 #'   interval
-#'
-#' @examples
-#' calc_coverage_normal(
-#'   x = rnorm(20),
-#'   k = 2
-#' )
-#'
-#' calc_coverage_normal(
-#'   z_upper = 2,
-#'   z_lower = -2
-#' )
 calc_coverage_normal <- function(x = NULL,
                                  k = NULL,
                                  z_upper = NULL,
@@ -46,12 +35,6 @@ calc_coverage_normal <- function(x = NULL,
 #'
 #' @return `TRUE` if all elements of `list_object` return `TRUE` when evaluated by `fun`; otherwise,
 #'   `FALSE`
-#'
-#' @examples
-#' eval_across(
-#'   list_object = list(2, 3),
-#'   fun = "is.numeric"
-#' )
 eval_across <- function(list_object,
                         fun) {
 

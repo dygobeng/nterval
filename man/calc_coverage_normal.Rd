@@ -25,14 +25,3 @@ Calculate true coverage for Normal distribution
 \details{
 User must provide either \code{x} and \code{k} OR \code{z_upper} and \code{z_lower}.
 }
-\examples{
-calc_coverage_normal(
-  x = rnorm(20),
-  k = 2
-)
-
-calc_coverage_normal(
-  z_upper = 2,
-  z_lower = -2
-)
-}

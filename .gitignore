@@ -1,1 +1,15 @@
+.DS_Store
+.RData
+.Rhistory
+.Rprofile
 .Rproj.user
+*.Rcheck
+**/*.tgz
+**/*.tar.gz
+doc
+docs
+inst/doc
+Meta
+renv
+/doc/
+/Meta/

@@ -19,9 +19,3 @@ eval_across(list_object, fun)
 \description{
 Evaluate function across list elements
 }
-\examples{
-eval_across(
-  list_object = list(2, 3),
-  fun = "is.numeric"
-)
-}

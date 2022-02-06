@@ -26,22 +26,22 @@ plot_reliability <- function(n,
   plot_data <- data.frame(cov = reliability_list[["sim_coverage"]])
   break_values <- c(all_break_values[which(all_break_values > min(plot_data$cov))], 1)
 
-  ggplot() +
-    scale_x_continuous(expand = c(0, 0)) +
-    scale_y_continuous(expand = c(0, 0)) +
-    geom_histogram(plot_data,
-                   mapping = aes(x = cov),
+  ggplot2::ggplot() +
+    ggplot2::scale_x_continuous(expand = c(0, 0)) +
+    ggplot2::scale_y_continuous(expand = c(0, 0)) +
+    ggplot2::geom_histogram(plot_data,
+                   mapping = ggplot2::aes(x = cov),
                    breaks = break_values,
                    fill = "white",
                    color = "black",
                    size = 0.1) +
-    geom_histogram(subset(plot_data, cov >= prox_lo & cov <= prox_hi),
-                   mapping = aes(x = cov),
+    ggplot2::geom_histogram(subset(plot_data, cov >= prox_lo & cov <= prox_hi),
+                   mapping = ggplot2::aes(x = cov),
                    breaks = break_values,
                    fill = color_list[["lightblue"]],
                    color = "black",
                    size = 0.1) +
-    geom_vline(xintercept = c(calc_coverage_normal(z_upper = k, z_lower = -k),
+    ggplot2::geom_vline(xintercept = c(calc_coverage_normal(z_upper = k, z_lower = -k),
                               prox_lo,
                               prox_hi),
                color = c(color_list[["teal"]],
@@ -49,11 +49,11 @@ plot_reliability <- function(n,
                          color_list[["darkblue"]]),
                size = 1,
                linetype = c("solid", "dashed", "dashed")) +
-    labs(title = paste0("k = ", k,
+    ggplot2::labs(title = paste0("k = ", k,
                         "  Estimated N = ", n,
                         "  Estimated Reliability = ",
                         round(100 * reliability_list[["reliability_hat"]], 2), "%"),
          x = "True Population Coverage Based on Sample Intervals",
          y = "Count") +
-    theme_bw()
+    ggplot2::theme_bw()
 }

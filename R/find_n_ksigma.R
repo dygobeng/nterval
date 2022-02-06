@@ -44,9 +44,9 @@ find_n_ksigma <- function(proximity_range,
                           search_interval = c(3, 500),
                           n_search = NA,
                           n_confirm = 100000,
-                          tol = 0.001,
-                          plot = TRUE,
-                          verbose = TRUE) {
+                          tolerance = 0.001,
+                          plot = FALSE,
+                          verbose = FALSE) {
 
   assertthat::assert_that(
     eval_across(list(proximity_range,
@@ -115,7 +115,7 @@ find_n_ksigma <- function(proximity_range,
     }
 
     # check the search_interval limits before proceeding with the rest of the bisection algorithm
-    if (firstpass & (abs(fa) < tol | abs(fb) < tol)) {
+    if (firstpass & (abs(fa) < tolerance | abs(fb) < tolerance)) {
       if (n_sim == n_confirm) {
         found <- TRUE
         n <- ifelse(abs(fa) < abs(fb), a, b)
@@ -137,12 +137,12 @@ find_n_ksigma <- function(proximity_range,
         fn <- estimate_reliability(n, k, prox_lo, prox_hi, n_sim) - reliability
 
         # check for difference within tolerance or one-observation wide sample_interval
-        if (abs(fn) <= tol | (b - a <= 1)) {
+        if (abs(fn) <= tolerance | (b - a <= 1)) {
           if (n_sim == n_confirm) {
             found <- TRUE
           }else{
             fn <- estimate_reliability(n, k, prox_lo, prox_hi, n_confirm) - reliability
-            if (abs(fn) <= tol | (b - a <= 1)) found <- TRUE
+            if (abs(fn) <= tolerance | (b - a <= 1)) found <- TRUE
           }
         }
       }
