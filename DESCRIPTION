@@ -3,8 +3,8 @@ Title: Calculate Sample Size for Population Coverage Intervals
 Version: 0.0.0.9000
 Authors@R: 
     person("Obeng", "Daniel", , "dobeng@gmail.com", role = c("aut", "cre"))
-Description: Quickly calculate sample size required to deliver population coverage intervals (e.g.,
-    k-sigma intervals) with prespecified reliability
+Description: This function allows users to quickly calculate the sample size required to deliver 
+    population coverage intervals (e.g., k-sigma intervals) with prespecified reliability.
 License: MIT + file LICENSE
 Imports:
     dplyr,

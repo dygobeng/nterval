@@ -84,7 +84,7 @@ find_n_ksigma(
 The required sample size is correlated with the target reliability and inversely correlated with
 the width of the proximity range:
 
-```{r modify prox range and reliability, echo = TRUE, eval = TRUE}
+```{r modify_prox_range_and_reliability, echo = TRUE, eval = TRUE}
 # Increase targeted reliability to 80%
 find_n_ksigma(
   proximity_range = c(0.93, 0.97),
@@ -106,7 +106,7 @@ there is evidence to suggest that setting `k` closer to the midpoint of the prox
 yield smaller sample sizes without loss of coverage. As such, if a value for`k` is not specified it
 is set based on the midpoint of `proximity_range`. Compare the following function executions:
 
-```{r do not specify k, echo = TRUE, eval = TRUE}
+```{r do_not_specify_k, echo = TRUE, eval = TRUE}
 # Setting k = 2 (95.44% coverage)
 find_n_ksigma(
   proximity_range = c(0.93, 0.96),
@@ -123,7 +123,7 @@ find_n_ksigma(
 
 Setting `verbose = TRUE` provides real-time information on the progress of the bisection algorithm.
 
-```{r with verbose, echo = TRUE, eval = TRUE}
+```{r with_verbose, echo = TRUE, eval = TRUE}
 find_n_ksigma(
   proximity_range = c(0.93, 0.97),
   reliability = 0.7,
@@ -135,7 +135,7 @@ find_n_ksigma(
 Setting `plot = TRUE` generates a histogram of the sample coverages, highlighting the acceptable
 coverage region between the proximity limits.
 
-```{r with plot, echo = TRUE, eval = TRUE}
+```{r with_plot, echo = TRUE, eval = TRUE}
 find_n_ksigma(
   proximity_range = c(0.93, 0.97),
   reliability = 0.7,
