@@ -13,7 +13,8 @@ find_n_ksigma(
   n_confirm = 1e+05,
   tolerance = 0.001,
   plot = FALSE,
-  verbose = FALSE
+  verbose = FALSE,
+  seed = NULL
 )
 }
 \arguments{
@@ -44,6 +45,8 @@ identified through bisection.}
 
 \item{verbose}{If \code{TRUE}, print the search interval used for each round of the bisection
 algorithm search.}
+
+\item{seed}{Randomization seed. Defaults to \code{NULL} so that no seed is used.}
 }
 \value{
 A list with the following elements:

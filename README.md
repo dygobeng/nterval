@@ -68,7 +68,8 @@ no more than 97% of the population with 70% reliability.
 
 We’ll use the `find_n_ksigma()` function to determine the required
 sample size. The main arguments accept values for `k` (based on the
-target coverage), the `proximity_range`, and the targeted `reliability`:
+target coverage), the `proximity_range`, and the targeted `reliability`
+(NOTE: The `seed` argument is used for reproducibility):
 
 ``` r
 library(nterval)
@@ -78,7 +79,8 @@ library(nterval)
 find_n_ksigma(
   proximity_range = c(0.93, 0.97),
   reliability = 0.7,
-  k = 2
+  k = 2,
+  seed = 12345
 )
 #> $sample_size
 #> [1] 69
@@ -87,7 +89,7 @@ find_n_ksigma(
 #> [1] 2
 #> 
 #> $reliability_hat
-#> [1] 0.7049
+#> [1] 0.70393
 ```
 
 The required sample size is correlated with the target reliability and
@@ -98,22 +100,24 @@ inversely correlated with the width of the proximity range:
 find_n_ksigma(
   proximity_range = c(0.93, 0.97),
   reliability = 0.8,
-  k = 2
+  k = 2,
+  seed = 12345
 )
 #> $sample_size
-#> [1] 103
+#> [1] 104
 #> 
 #> $k_constant
 #> [1] 2
 #> 
 #> $reliability_hat
-#> [1] 0.79911
+#> [1] 0.80095
 
 # Increase width of proximity range to 92% - 98%
 find_n_ksigma(
   proximity_range = c(0.92, 0.98),
   reliability = 0.7,
-  k = 2
+  k = 2,
+  seed = 12345
 )
 #> $sample_size
 #> [1] 31
@@ -122,7 +126,7 @@ find_n_ksigma(
 #> [1] 2
 #> 
 #> $reliability_hat
-#> [1] 0.7089
+#> [1] 0.70673
 ```
 
 There are some cases in which pre-specifying `k` may generate larger
@@ -139,30 +143,32 @@ executions:
 find_n_ksigma(
   proximity_range = c(0.93, 0.96),
   reliability = 0.7,
-  k = 2
+  k = 2,
+  seed = 12345
 )
 #> $sample_size
-#> [1] 202
+#> [1] 206
 #> 
 #> $k_constant
 #> [1] 2
 #> 
 #> $reliability_hat
-#> [1] 0.69902
+#> [1] 0.69947
 
 # Allowing k to be set to the mid-point of the proximity range (0.945)
 find_n_ksigma(
   proximity_range = c(0.93, 0.96),
-  reliability = 0.7
+  reliability = 0.7,
+  seed = 12345
 )
 #> $sample_size
-#> [1] 144
+#> [1] 142
 #> 
 #> $k_constant
 #> [1] 1.918876
 #> 
 #> $reliability_hat
-#> [1] 0.69943
+#> [1] 0.69944
 ```
 
 Setting `verbose = TRUE` provides real-time information on the progress
@@ -173,6 +179,7 @@ find_n_ksigma(
   proximity_range = c(0.93, 0.97),
   reliability = 0.7,
   k = 2,
+  seed = 12345,
   verbose = TRUE
 )
 #> ℹ Checking k = 2
@@ -184,14 +191,16 @@ find_n_ksigma(
 #> ℹ Round:6  a:66  b:82
 #> ℹ Round:7  a:66  b:74
 #> ℹ Round:8  a:66  b:70
+#> ℹ Round:9  a:68  b:70
+#> ℹ Round:10  a:68  b:69
 #> $sample_size
-#> [1] 68
+#> [1] 69
 #> 
 #> $k_constant
 #> [1] 2
 #> 
 #> $reliability_hat
-#> [1] 0.69906
+#> [1] 0.70393
 ```
 
 Setting `plot = TRUE` generates a histogram of the sample coverages,
@@ -203,6 +212,7 @@ find_n_ksigma(
   proximity_range = c(0.93, 0.97),
   reliability = 0.7,
   k = 2,
+  seed = 12345,
   plot = TRUE
 )
 #> $sample_size
@@ -212,7 +222,7 @@ find_n_ksigma(
 #> [1] 2
 #> 
 #> $reliability_hat
-#> [1] 0.70246
+#> [1] 0.70393
 #> 
 #> $reliability_plot
 ```

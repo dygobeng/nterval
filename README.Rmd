@@ -67,7 +67,7 @@ no more than 97% of the population with 70% reliability.
 
 We'll use the `find_n_ksigma()` function to determine the required sample size. The main arguments
 accept values for `k` (based on the target coverage), the `proximity_range`, and the targeted
-`reliability`:
+`reliability` (NOTE: The `seed` argument is used for reproducibility):
 
 ```{r, eval = TRUE}
 library(nterval)
@@ -77,7 +77,8 @@ library(nterval)
 find_n_ksigma(
   proximity_range = c(0.93, 0.97),
   reliability = 0.7,
-  k = 2
+  k = 2,
+  seed = 12345
 )
 ```
 
@@ -89,14 +90,16 @@ the width of the proximity range:
 find_n_ksigma(
   proximity_range = c(0.93, 0.97),
   reliability = 0.8,
-  k = 2
+  k = 2,
+  seed = 12345
 )
 
 # Increase width of proximity range to 92% - 98%
 find_n_ksigma(
   proximity_range = c(0.92, 0.98),
   reliability = 0.7,
-  k = 2
+  k = 2,
+  seed = 12345
 )
 ```
 
@@ -111,13 +114,15 @@ is set based on the midpoint of `proximity_range`. Compare the following functio
 find_n_ksigma(
   proximity_range = c(0.93, 0.96),
   reliability = 0.7,
-  k = 2
+  k = 2,
+  seed = 12345
 )
 
 # Allowing k to be set to the mid-point of the proximity range (0.945)
 find_n_ksigma(
   proximity_range = c(0.93, 0.96),
-  reliability = 0.7
+  reliability = 0.7,
+  seed = 12345
 )
 ```
 
@@ -128,6 +133,7 @@ find_n_ksigma(
   proximity_range = c(0.93, 0.97),
   reliability = 0.7,
   k = 2,
+  seed = 12345,
   verbose = TRUE
 )
 ```
@@ -140,6 +146,7 @@ find_n_ksigma(
   proximity_range = c(0.93, 0.97),
   reliability = 0.7,
   k = 2,
+  seed = 12345,
   plot = TRUE
 )
 ```

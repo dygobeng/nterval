@@ -23,6 +23,7 @@
 #'   identified through bisection.
 #' @param verbose If `TRUE`, print the search interval used for each round of the bisection
 #'   algorithm search.
+#' @param seed Randomization seed. Defaults to `NULL` so that no seed is used.
 #'
 #' @return
 #' A list with the following elements:
@@ -46,14 +47,15 @@ find_n_ksigma <- function(proximity_range,
                           n_confirm = 100000,
                           tolerance = 0.001,
                           plot = FALSE,
-                          verbose = FALSE) {
+                          verbose = FALSE,
+                          seed = NULL) {
 
   assertthat::assert_that(
     eval_across(list(proximity_range,
                      reliability,
                      search_interval),
                 fun = "is.numeric"),
-    msg = "proximity_range, reliability, and k must be numeric"
+    msg = "proximity_range, reliability, k, and search_interval must be numeric"
   )
 
   assertthat::assert_that(
@@ -63,11 +65,19 @@ find_n_ksigma <- function(proximity_range,
     msg = "proximity_range and search_interval must be vectors with 2 elements"
   )
 
+  assertthat::assert_that(
+    eval_across(list(proximity_range, search_interval),
+                fun = "~ .x[1] < .x[2]") %>%
+      all(),
+    msg = "proximity_range and search_interval elements must be in ascending order"
+  )
+
   if (!is.null(k)) {
     assertthat::assert_that(
       is.numeric(k),
       msg = "k must be numeric"
     )
+    k <- abs(k)
   } else {
     k <- -qnorm((1 - mean(proximity_range)) / 2)
   }
@@ -107,11 +117,11 @@ find_n_ksigma <- function(proximity_range,
     n_sim <- ifelse(b - a < 100, n_confirm, n_search)
 
     if (firstpass | checkrange) {
-      fa <- estimate_reliability(a, k, prox_lo, prox_hi, n_sim) - reliability
+      fa <- estimate_reliability(a, k, prox_lo, prox_hi, n_sim, seed) - reliability
     }
 
     if (firstpass | checkrange) {
-      fb <- estimate_reliability(b, k, prox_lo, prox_hi, n_sim) - reliability
+      fb <- estimate_reliability(b, k, prox_lo, prox_hi, n_sim, seed) - reliability
     }
 
     # check the search_interval limits before proceeding with the rest of the bisection algorithm
@@ -121,7 +131,7 @@ find_n_ksigma <- function(proximity_range,
         n <- ifelse(abs(fa) < abs(fb), a, b)
       } else {
         n <- ifelse(abs(fa) < abs(fb), a, b)
-        fn <- estimate_reliability(n, k, prox_lo, prox_hi, n_confirm) - reliability
+        fn <- estimate_reliability(n, k, prox_lo, prox_hi, n_confirm, seed) - reliability
         if (abs(fn) < tol) found <- TRUE
       }
     } else {
@@ -134,14 +144,14 @@ find_n_ksigma <- function(proximity_range,
       } else {
         checkrange <- FALSE
         n <- ceiling((a + b) / 2)
-        fn <- estimate_reliability(n, k, prox_lo, prox_hi, n_sim) - reliability
+        fn <- estimate_reliability(n, k, prox_lo, prox_hi, n_sim, seed) - reliability
 
         # check for difference within tolerance or one-observation wide sample_interval
         if (abs(fn) <= tolerance | (b - a <= 1)) {
           if (n_sim == n_confirm) {
             found <- TRUE
           }else{
-            fn <- estimate_reliability(n, k, prox_lo, prox_hi, n_confirm) - reliability
+            fn <- estimate_reliability(n, k, prox_lo, prox_hi, n_confirm, seed) - reliability
             if (abs(fn) <= tolerance | (b - a <= 1)) found <- TRUE
           }
         }
@@ -165,7 +175,8 @@ find_n_ksigma <- function(proximity_range,
                                           k,
                                           prox_lo,
                                           prox_hi,
-                                          n_confirm)
+                                          n_confirm,
+                                          seed)
   }
 
   if (plot) {

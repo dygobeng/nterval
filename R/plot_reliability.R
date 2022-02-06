@@ -9,6 +9,7 @@ plot_reliability <- function(n,
                              prox_lo,
                              prox_hi,
                              n_sim,
+                             seed,
                              color_list = COLOR_PALETTE) {
 
   rlang::check_installed("ggplot2", reason = "to use `plot_reliability()`")
@@ -22,7 +23,13 @@ plot_reliability <- function(n,
   shift <- delta[which(abs(delta) == min(abs(delta)))]
   all_break_values <- all_break_values + shift
 
-  reliability_list <- estimate_reliability(n, k, prox_lo, prox_hi, n_sim, save_data = TRUE)
+  reliability_list <- estimate_reliability(n,
+                                           k,
+                                           prox_lo,
+                                           prox_hi,
+                                           n_sim,
+                                           seed,
+                                           save_data = TRUE)
   plot_data <- data.frame(cov = reliability_list[["sim_coverage"]])
   break_values <- c(all_break_values[which(all_break_values > min(plot_data$cov))], 1)
 

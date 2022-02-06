@@ -10,7 +10,7 @@
 #' @param prox_hi Upper proximity limit expressed as a proportion on the closed interval between 0
 #'   and 1.
 #' @param n_sim Number of simulation iterations to generate coverage sampling distribution.
-#' @param seed Randomization seed. Defaults to `NA` so that no seed is used.
+#' @param seed Randomization seed.
 #' @param save_data If `TRUE`, return vector of coverage calculations for simulated samples.
 #'
 #' @return Estimated reliability (`reliability_hat`) conditional on proximity limits. If `save_data`
@@ -29,18 +29,18 @@ estimate_reliability <- function(n,
                                  prox_lo,
                                  prox_hi,
                                  n_sim = 100000,
-                                 seed = NA,
+                                 seed = NULL,
                                  save_data = FALSE) {
+
+  assertthat::assert_that(
+    eval_across(list(n, k, prox_lo, prox_hi),
+                fun = "is.numeric"),
+    msg = "k, prox_lo, and prox_hi must be numeric values"
+  )
 
   assertthat::assert_that(
     (n %% 1 == 0) & n >= 3,
     msg = "n must be a whole number greater than or equal to 3"
-  )
-
-  assertthat::assert_that(
-    eval_across(list(k, prox_lo, prox_hi),
-                fun = "is.numeric"),
-    msg = "k, prox_lo, and prox_hi must be numeric values"
   )
 
   assertthat::assert_that(
@@ -49,7 +49,12 @@ estimate_reliability <- function(n,
     msg = "prox_lo and prox_hi must fall within the closed interval [0, 1]"
   )
 
-  if (!is.na(seed)) {
+  assertthat::assert_that(
+    prox_lo < prox_hi,
+    msg = "prox_lo must be less than prox_hi"
+  )
+
+  if (!is.null(seed)) {
     set.seed(seed)
   }
 

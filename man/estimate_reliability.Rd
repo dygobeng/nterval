@@ -10,7 +10,7 @@ estimate_reliability(
   prox_lo,
   prox_hi,
   n_sim = 1e+05,
-  seed = NA,
+  seed = NULL,
   save_data = FALSE
 )
 }
@@ -27,7 +27,7 @@ and 1.}
 
 \item{n_sim}{Number of simulation iterations to generate coverage sampling distribution.}
 
-\item{seed}{Randomization seed. Defaults to \code{NA} so that no seed is used.}
+\item{seed}{Randomization seed.}
 
 \item{save_data}{If \code{TRUE}, return vector of coverage calculations for simulated samples.}
 }

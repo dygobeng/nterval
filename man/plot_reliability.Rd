@@ -4,7 +4,15 @@
 \alias{plot_reliability}
 \title{Plot sample coverage sampling distribution}
 \usage{
-plot_reliability(n, k, prox_lo, prox_hi, n_sim, color_list = COLOR_PALETTE)
+plot_reliability(
+  n,
+  k,
+  prox_lo,
+  prox_hi,
+  n_sim,
+  seed,
+  color_list = COLOR_PALETTE
+)
 }
 \arguments{
 \item{n}{Sample size.}
@@ -18,6 +26,8 @@ and 1.}
 and 1.}
 
 \item{n_sim}{Number of simulation iterations to generate coverage sampling distribution.}
+
+\item{seed}{Randomization seed.}
 
 \item{color_list}{List object of package colors for plotting.}
 }
