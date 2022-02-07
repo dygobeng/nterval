@@ -1,6 +1,6 @@
 Package: nterval
 Title: Calculate Sample Size for Population Coverage Intervals
-Version: 0.1.0
+Version: 0.1.0.9000
 Authors@R: 
     person("Obeng", "Daniel", , "dobeng@gmail.com", role = c("aut", "cre"))
 Description: This function allows users to quickly calculate the sample size required to deliver 

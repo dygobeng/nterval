@@ -1,6 +1,16 @@
+^\.git.*$
+^\.github$
+^\.lintr$
 ^nterval\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
 ^README\.Rmd$
 ^cran-comments\.md$
 ^data-raw$
+^doc$
+^docs$
+^Meta$
+^README\.rmd$
+^.*\.RData$
+^.*\.Rpoj$
+^.*\.tar\.gz$

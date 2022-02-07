@@ -1,3 +1,13 @@
+# nterval 0.1.0.9000 (development version)
+
+## Bug fixes
+
+## New functionality
+
+## Function changes
+
+## Documentation
+
 # nterval 0.1.0
 
 Includes the following functions:

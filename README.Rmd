@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# nterval `r utils::packageVersion("nterval")`
+# nterval <img src="man/figures/logo.png" align="right" height="138" /> `r utils::packageVersion("nterval")`
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
