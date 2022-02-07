@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# nterval 0.0.0.9000
+# nterval 0.1.0
 
 <!-- badges: start -->
 
