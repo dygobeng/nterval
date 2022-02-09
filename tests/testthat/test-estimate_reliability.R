@@ -1,6 +1,6 @@
 dummy_seed <- 12345
 dummy_prox <- c(0.93, 0.97)
-dummy_n <- 69
+dummy_n <- 53
 dummy_k <- 2
 dummy_nsim <- 1000
 

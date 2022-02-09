@@ -13,12 +13,11 @@
 #'  `proximity_range`.
 #' @param search_interval Initial interval of sample sizes for bisection algorithm. Default is
 #'   c(3, 500).
-#' @param n_search Number of simulation iterations during initial search for root. If `NA`, will be
-#'   set to approximately 10% of `n_confirm` or 1000, whichever is greater.
-#' @param n_confirm Number of simulation iterations used to confirm `reliability`.
+#' @param n_sim Number of simulation iterations used to estimate `reliability`. Default is
+#'   1000000.
 #' @param tolerance Threshold for difference between targeted and estimated `reliability` that
 #'   indicates sufficient proximity of the root-finding function to 0, triggering the end of the
-#'   search. Default is 0.001.
+#'   search. Default is 0.00001.
 #' @param plot If `TRUE`, plot sampling distribution for true interval coverage using sample size
 #'   identified through bisection.
 #' @param verbose If `TRUE`, print the search interval used for each round of the bisection
@@ -43,9 +42,8 @@ find_n_ksigma <- function(proximity_range,
                           reliability,
                           k = NULL,
                           search_interval = c(3, 500),
-                          n_search = NA,
-                          n_confirm = 100000,
-                          tolerance = 0.001,
+                          n_sim = 1000000,
+                          tolerance = 0.00001,
                           plot = FALSE,
                           verbose = FALSE,
                           seed = NULL) {
@@ -93,10 +91,6 @@ find_n_ksigma <- function(proximity_range,
     msg = "prox_lo, prox_hi, and reliability must fall within the closed interval [0, 1]"
   )
 
-  if (is.na(n_search)) {
-    n_search <- max(round(n_confirm / 10), 1000)
-  }
-
   found <- FALSE # has a solution been found?
   firstpass <- TRUE # is this the first pass through the bisection algorithm?
   checkrange <- TRUE # does the search interval range include the function root?
@@ -113,9 +107,6 @@ find_n_ksigma <- function(proximity_range,
       )
     }
 
-    # for wider search range, use smaller number of simulation iterations
-    n_sim <- ifelse(b - a < 100, n_confirm, n_search)
-
     if (firstpass | checkrange) {
       fa <- estimate_reliability(a, k, prox_lo, prox_hi, n_sim, seed) - reliability
     }
@@ -126,14 +117,8 @@ find_n_ksigma <- function(proximity_range,
 
     # check the search_interval limits before proceeding with the rest of the bisection algorithm
     if (firstpass & (abs(fa) < tolerance | abs(fb) < tolerance)) {
-      if (n_sim == n_confirm) {
-        found <- TRUE
-        n <- ifelse(abs(fa) < abs(fb), a, b)
-      } else {
-        n <- ifelse(abs(fa) < abs(fb), a, b)
-        fn <- estimate_reliability(n, k, prox_lo, prox_hi, n_confirm, seed) - reliability
-        if (abs(fn) < tol) found <- TRUE
-      }
+      found <- TRUE
+      n <- ifelse(abs(fa) < abs(fb), a, b)
     } else {
       firstpass <- FALSE
 
@@ -148,12 +133,7 @@ find_n_ksigma <- function(proximity_range,
 
         # check for difference within tolerance or one-observation wide sample_interval
         if (abs(fn) <= tolerance | (b - a <= 1)) {
-          if (n_sim == n_confirm) {
-            found <- TRUE
-          }else{
-            fn <- estimate_reliability(n, k, prox_lo, prox_hi, n_confirm, seed) - reliability
-            if (abs(fn) <= tolerance | (b - a <= 1)) found <- TRUE
-          }
+          found <- TRUE
         }
       }
     }
@@ -175,7 +155,7 @@ find_n_ksigma <- function(proximity_range,
                                           k,
                                           prox_lo,
                                           prox_hi,
-                                          n_confirm,
+                                          n_sim,
                                           seed)
   }
 

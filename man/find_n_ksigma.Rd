@@ -9,9 +9,8 @@ find_n_ksigma(
   reliability,
   k = NULL,
   search_interval = c(3, 500),
-  n_search = NA,
-  n_confirm = 1e+05,
-  tolerance = 0.001,
+  n_sim = 1e+06,
+  tolerance = 1e-05,
   plot = FALSE,
   verbose = FALSE,
   seed = NULL
@@ -31,14 +30,12 @@ distribution (typically 2 or 3). If \code{NULL}, \code{k} is assigned based on t
 \item{search_interval}{Initial interval of sample sizes for bisection algorithm. Default is
 c(3, 500).}
 
-\item{n_search}{Number of simulation iterations during initial search for root. If \code{NA}, will be
-set to approximately 10\% of \code{n_confirm} or 1000, whichever is greater.}
-
-\item{n_confirm}{Number of simulation iterations used to confirm \code{reliability}.}
+\item{n_sim}{Number of simulation iterations used to estimate \code{reliability}. Default is
+1000000.}
 
 \item{tolerance}{Threshold for difference between targeted and estimated \code{reliability} that
 indicates sufficient proximity of the root-finding function to 0, triggering the end of the
-search. Default is 0.001.}
+search. Default is 0.00001.}
 
 \item{plot}{If \code{TRUE}, plot sampling distribution for true interval coverage using sample size
 identified through bisection.}

@@ -6,6 +6,13 @@
 
 ## Function changes
 
+* Updated `estimate_reliability()` function to sample from PDF of sampling distributions for sample
+mean and sample variance. This allows function to skip the time-consuming process of generating 
+random Normal samples and significantly improves function performance.
+
+* Updated `find_n_ksigma()` to remove need for `n_search` option given performance improvement. Now, 
+one only needs to define `n_sim` for all estimation of reliability.
+
 ## Documentation
 
 # nterval 0.1.0
