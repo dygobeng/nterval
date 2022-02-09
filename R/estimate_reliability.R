@@ -58,17 +58,16 @@ estimate_reliability <- function(n,
     set.seed(seed)
   }
 
-  cov_n <- rep(NA, n_sim)
-  for (i in 1:n_sim) {
-    .data <- rnorm(n)
-    cov_n[i] <- calc_coverage_normal(.data, k)
-  }
+  xbar <- rnorm(n_sim, mean = 0, sd = 1 / sqrt(n))
+  s <- sqrt(rchisq(n_sim, df = n - 1) / (n - 1))
+  z_data <- matrix(xbar + c(-1, 1) * k * s, ncol = 2, byrow = TRUE)
 
-  reliability_hat <- mean(cov_n >= prox_lo & cov_n <= prox_hi)
+  cov_vec <- calc_coverage_normal(z_lower = z_data[,1], z_upper = z_data[,2])
+  reliability_hat <- mean(cov_vec >= prox_lo & cov_vec <= prox_hi)
 
   if (save_data) {
     return(list(reliability_hat = reliability_hat,
-                sim_coverage = cov_n))
+                sim_coverage = cov_vec))
   }else{
     return(reliability_hat)
   }
