@@ -83,13 +83,13 @@ find_n_ksigma(
   seed = 12345
 )
 #> $sample_size
-#> [1] 69
+#> [1] 53
 #> 
 #> $k_constant
 #> [1] 2
 #> 
 #> $reliability_hat
-#> [1] 0.70393
+#> [1] 0.700928
 ```
 
 The required sample size is correlated with the target reliability and
@@ -104,13 +104,13 @@ find_n_ksigma(
   seed = 12345
 )
 #> $sample_size
-#> [1] 104
+#> [1] 79
 #> 
 #> $k_constant
 #> [1] 2
 #> 
 #> $reliability_hat
-#> [1] 0.80095
+#> [1] 0.8002
 
 # Increase width of proximity range to 92% - 98%
 find_n_ksigma(
@@ -120,13 +120,13 @@ find_n_ksigma(
   seed = 12345
 )
 #> $sample_size
-#> [1] 31
+#> [1] 25
 #> 
 #> $k_constant
 #> [1] 2
 #> 
 #> $reliability_hat
-#> [1] 0.70673
+#> [1] 0.703056
 ```
 
 There are some cases in which pre-specifying `k` may generate larger
@@ -147,13 +147,13 @@ find_n_ksigma(
   seed = 12345
 )
 #> $sample_size
-#> [1] 206
+#> [1] 143
 #> 
 #> $k_constant
 #> [1] 2
 #> 
 #> $reliability_hat
-#> [1] 0.69947
+#> [1] 0.70016
 
 # Allowing k to be set to the mid-point of the proximity range (0.945)
 find_n_ksigma(
@@ -162,13 +162,13 @@ find_n_ksigma(
   seed = 12345
 )
 #> $sample_size
-#> [1] 142
+#> [1] 114
 #> 
 #> $k_constant
 #> [1] 1.918876
 #> 
 #> $reliability_hat
-#> [1] 0.69944
+#> [1] 0.701558
 ```
 
 Setting `verbose = TRUE` provides real-time information on the progress
@@ -186,21 +186,21 @@ find_n_ksigma(
 #> ℹ Round:1  a:3  b:500
 #> ℹ Round:2  a:3  b:252
 #> ℹ Round:3  a:3  b:128
-#> ℹ Round:4  a:66  b:128
-#> ℹ Round:5  a:66  b:97
-#> ℹ Round:6  a:66  b:82
-#> ℹ Round:7  a:66  b:74
-#> ℹ Round:8  a:66  b:70
-#> ℹ Round:9  a:68  b:70
-#> ℹ Round:10  a:68  b:69
+#> ℹ Round:4  a:3  b:66
+#> ℹ Round:5  a:35  b:66
+#> ℹ Round:6  a:51  b:66
+#> ℹ Round:7  a:51  b:59
+#> ℹ Round:8  a:51  b:55
+#> ℹ Round:9  a:51  b:53
+#> ℹ Round:10  a:52  b:53
 #> $sample_size
-#> [1] 69
+#> [1] 53
 #> 
 #> $k_constant
 #> [1] 2
 #> 
 #> $reliability_hat
-#> [1] 0.70393
+#> [1] 0.700928
 ```
 
 Setting `plot = TRUE` generates a histogram of the sample coverages,
@@ -216,13 +216,13 @@ find_n_ksigma(
   plot = TRUE
 )
 #> $sample_size
-#> [1] 69
+#> [1] 53
 #> 
 #> $k_constant
 #> [1] 2
 #> 
 #> $reliability_hat
-#> [1] 0.70393
+#> [1] 0.700928
 #> 
 #> $reliability_plot
 ```
