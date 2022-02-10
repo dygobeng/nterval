@@ -8,4 +8,4 @@ color_palette <- list(
   paleblue = "#EDF1F4"
 )
 
-usethis::use_data(color_palette, overwrite = TRUE)
+usethis::use_data(color_palette, overwrite = TRUE, internal = TRUE)
