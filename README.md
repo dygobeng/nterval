@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# nterval <img src="man/figures/logo.png" align="right" height="138" /> 0.1.0.9000
+# nterval <img src="man/figures/logo.png" align="right" height="138" /> 0.1.1
 
 <!-- badges: start -->
 
