@@ -11,7 +11,7 @@ plot_reliability(
   prox_hi,
   n_sim,
   seed,
-  color_list = COLOR_PALETTE
+  color_list = color_palette
 )
 }
 \arguments{

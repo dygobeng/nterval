@@ -10,7 +10,7 @@ plot_reliability <- function(n,
                              prox_hi,
                              n_sim,
                              seed,
-                             color_list = COLOR_PALETTE) {
+                             color_list = color_palette) {
   rlang::check_installed("ggplot2", reason = "to use `plot_reliability()`")
 
   # determine histogram breaks to ensure proximity limits fall between bins and desired resolution

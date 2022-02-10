@@ -1,4 +1,4 @@
-COLOR_PALETTE <- list(
+color_palette <- list(
   orange = "#EB5600",
   lightorange = "#E89B78",
   teal = "#1A9988",
@@ -8,4 +8,4 @@ COLOR_PALETTE <- list(
   paleblue = "#EDF1F4"
 )
 
-usethis::use_data(COLOR_PALETTE, overwrite = TRUE)
+usethis::use_data(color_palette, overwrite = TRUE)
