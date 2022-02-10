@@ -73,7 +73,8 @@ estimate_reliability <- function(n,
       list(
         reliability_hat = reliability_hat,
         sim_coverage = cov_vec
-      ))
+      )
+    )
   } else {
     return(reliability_hat)
   }
