@@ -3,14 +3,14 @@
 \docType{data}
 \name{color_palette}
 \alias{color_palette}
-\title{Color palette for package graphics}
+\title{Package Color Palette Data}
 \format{
-A list with 7 elements
+A list of named color values
 }
 \usage{
 color_palette
 }
 \description{
-This data provides a set of pre-specified color variables for generating plots and figures
+This list provides a selection of colors to be used in plots and other graphics
 }
 \keyword{datasets}

@@ -4,3 +4,7 @@
 \name{rwdplyr}
 \alias{rwdplyr}
 \title{nterval}
+\description{
+To learn more about nterval, review the README at github.com/dygobeng/nterval.
+}
+\keyword{internal}

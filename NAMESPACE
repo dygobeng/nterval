@@ -3,3 +3,8 @@
 export(estimate_reliability)
 export(find_n_ksigma)
 importFrom(magrittr,"%>%")
+importFrom(stats,pnorm)
+importFrom(stats,qnorm)
+importFrom(stats,rchisq)
+importFrom(stats,rnorm)
+importFrom(stats,sd)
