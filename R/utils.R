@@ -13,7 +13,6 @@ calc_coverage_normal <- function(x = NULL,
                                  k = NULL,
                                  z_upper = NULL,
                                  z_lower = NULL) {
-
   assertthat::assert_that(
     !any(is.null(x) & is.null(k)) | !any(is.null(z_upper) & is.null(z_lower)),
     msg = "Must provide either x and k OR z_upper and z_lower"
@@ -37,9 +36,10 @@ calc_coverage_normal <- function(x = NULL,
 #'   `FALSE`
 eval_across <- function(list_object,
                         fun) {
-
   fun_value <- parse(text = fun)
-  purrr::map_lgl(.x = list_object,
-             .f = eval(fun_value)) %>%
+  purrr::map_lgl(
+    .x = list_object,
+    .f = eval(fun_value)
+  ) %>%
     all()
 }

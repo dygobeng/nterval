@@ -31,10 +31,11 @@ estimate_reliability <- function(n,
                                  n_sim = 100000,
                                  seed = NULL,
                                  save_data = FALSE) {
-
   assertthat::assert_that(
-    eval_across(list(n, k, prox_lo, prox_hi),
-                fun = "is.numeric"),
+    eval_across(
+      list(n, k, prox_lo, prox_hi),
+      fun = "is.numeric"
+    ),
     msg = "k, prox_lo, and prox_hi must be numeric values"
   )
 
@@ -44,8 +45,10 @@ estimate_reliability <- function(n,
   )
 
   assertthat::assert_that(
-    eval_across(list(prox_lo, prox_hi),
-                   fun = "~dplyr::between(.x, 0, 1)"),
+    eval_across(
+      list(prox_lo, prox_hi),
+      fun = "~dplyr::between(.x, 0, 1)"
+    ),
     msg = "prox_lo and prox_hi must fall within the closed interval [0, 1]"
   )
 
@@ -62,13 +65,16 @@ estimate_reliability <- function(n,
   s <- sqrt(rchisq(n_sim, df = n - 1) / (n - 1))
   z_data <- matrix(xbar + c(-1, 1) * k * s, ncol = 2, byrow = TRUE)
 
-  cov_vec <- calc_coverage_normal(z_lower = z_data[,1], z_upper = z_data[,2])
+  cov_vec <- calc_coverage_normal(z_lower = z_data[, 1], z_upper = z_data[, 2])
   reliability_hat <- mean(cov_vec >= prox_lo & cov_vec <= prox_hi)
 
   if (save_data) {
-    return(list(reliability_hat = reliability_hat,
-                sim_coverage = cov_vec))
-  }else{
+    return(
+      list(
+        reliability_hat = reliability_hat,
+        sim_coverage = cov_vec
+      ))
+  } else {
     return(reliability_hat)
   }
 }

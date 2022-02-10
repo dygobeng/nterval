@@ -47,25 +47,38 @@ find_n_ksigma <- function(proximity_range,
                           plot = FALSE,
                           verbose = FALSE,
                           seed = NULL) {
-
   assertthat::assert_that(
-    eval_across(list(proximity_range,
-                     reliability,
-                     search_interval),
-                fun = "is.numeric"),
+    eval_across(
+      list(
+        proximity_range,
+        reliability,
+        search_interval
+      ),
+      fun = "is.numeric"
+    ),
     msg = "proximity_range, reliability, k, and search_interval must be numeric"
   )
 
   assertthat::assert_that(
-    eval_across(list(proximity_range, search_interval),
-                fun = "~ length(.x) == 2") %>%
+    eval_across(
+      list(
+        proximity_range,
+        search_interval
+      ),
+      fun = "~ length(.x) == 2"
+    ) %>%
       all(),
     msg = "proximity_range and search_interval must be vectors with 2 elements"
   )
 
   assertthat::assert_that(
-    eval_across(list(proximity_range, search_interval),
-                fun = "~ .x[1] < .x[2]") %>%
+    eval_across(
+      list(
+        proximity_range,
+        search_interval
+      ),
+      fun = "~ .x[1] < .x[2]"
+    ) %>%
       all(),
     msg = "proximity_range and search_interval elements must be in ascending order"
   )
@@ -86,8 +99,14 @@ find_n_ksigma <- function(proximity_range,
   b <- search_interval[2]
 
   assertthat::assert_that(
-    eval_across(list(reliability, prox_lo, prox_hi),
-                fun = "~ dplyr::between(.x, 0, 1)"),
+    eval_across(
+      list(
+        reliability,
+        prox_lo,
+        prox_hi
+      ),
+      fun = "~ dplyr::between(.x, 0, 1)"
+    ),
     msg = "prox_lo, prox_hi, and reliability must fall within the closed interval [0, 1]"
   )
 
@@ -141,7 +160,7 @@ find_n_ksigma <- function(proximity_range,
     if (!any(found, checkrange)) {
       if (fn > 0) {
         b <- n
-      }else{
+      } else {
         a <- n
       }
     }
@@ -151,22 +170,33 @@ find_n_ksigma <- function(proximity_range,
 
   # Generate plot
   if (plot) {
-    samplingdist_plot <- plot_reliability(n,
-                                          k,
-                                          prox_lo,
-                                          prox_hi,
-                                          n_sim,
-                                          seed)
+    samplingdist_plot <-
+      plot_reliability(
+        n,
+        k,
+        prox_lo,
+        prox_hi,
+        n_sim,
+        seed
+      )
   }
 
   if (plot) {
-    return(list(sample_size = n,
-                k_constant = k,
-                reliability_hat = fn + reliability,
-                reliability_plot = samplingdist_plot))
-  }else{
-    return(list(sample_size = n,
-                k_constant = k,
-                reliability_hat = fn + reliability))
+    return(
+      list(
+        sample_size = n,
+        k_constant = k,
+        reliability_hat = fn + reliability,
+        reliability_plot = samplingdist_plot
+      )
+    )
+  } else {
+    return(
+      list(
+        sample_size = n,
+        k_constant = k,
+        reliability_hat = fn + reliability
+      )
+    )
   }
 }
